@@ -19,7 +19,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("connected to mongodb..."))
   .catch(err => console.log(err))
 
-app.use(cors({origin: "https://obscure-wave-27432.herokuapp.com/"}))
+app.use(cors({origin: "https://obscure-wave-27432.herokuapp.com"}))
 app.use('/api/items', items)
 
 // Serve static if Prodcution
