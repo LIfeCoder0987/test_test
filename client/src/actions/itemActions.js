@@ -1,5 +1,5 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types'
-import { serverURL } from '../../config/Keys'
+import { serverURL } from '../config/Keys'
 import axios from 'axios'
 
 export const getItems = () => dispatch =>
