@@ -1,26 +1,33 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
-
-const items = require('./routes/api/items')
+const config = require('config')
 
 const app = express()
 
 // BodyParser Middleware
-app.use(bodyParser.json())
+app.use(express.json())
 
 // DB Config
-const db = require('./config/Keys').mongoURI
+const db = config.get('mongoURI')
 
 // Connect to mongo
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(() => console.log("connected to mongodb..."))
   .catch(err => console.log(err))
 
-app.use(cors({origin: "https://obscure-wave-27432.herokuapp.com"}))
-app.use('/api/items', items)
+// CORS ===
+app.use(cors({origin: "http://localhost:8080"}))
+
+// Use Routes
+app.use('/api/items', require('./routes/api/items'))
+app.use('/api/users', require('./routes/api/users'))
+app.use('/api/auth', require('./routes/api/auth'))
 
 // Serve static if Prodcution
 if(process.env.NODE_ENV === 'production')

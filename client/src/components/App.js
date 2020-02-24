@@ -9,10 +9,17 @@ import AppNavbar from './AppNavbar'
 import ShoppingList from './ShoppingList'
 import ItemModal from './ItemModal'
 
+import { loadUser } from '../actions/authAction'
+
 import store from '../store'
 
 class App extends Component
 {
+  componentDidMount()
+  {
+    store.dispatch(loadUser())
+  }
+
   render()
   {
     return (
